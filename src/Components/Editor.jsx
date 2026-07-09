@@ -8,10 +8,11 @@ export default function Editor() {
   //   alert("Post has been posted!");
   // };
 
-  const handleSave = async () => {
+  const handleSave = async (publish) => {
     const payload = {
       title: title.current.value,
       body: blogPost.current.value,
+      published: publish
     };
 
     try {
@@ -53,13 +54,13 @@ export default function Editor() {
         ></textarea>{" "}
       </label>
 
-      {/* <button class="aero-btn" onClick={postBlogPost}>
+      {/* <button class="aero-btn" onClick={()=>{handleSave(true);}}>
         Post Blog
       </button> */}
       <button
         className="aero-btn"
         onClick={() => {
-          handleSave();
+          handleSave(false);
         }}
       >
         Save Post
