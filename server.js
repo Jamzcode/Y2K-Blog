@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import pg from "pg";
+import cookieParser from "cookie-parser";
 import "dotenv/config";
 
 const app = express();
@@ -8,6 +9,7 @@ const port = 3000;
 
 app.use(cors());
 app.use(express.json());
+app.use(cookieParser());
 
 const pool = new pg.Pool({
   host: "localhost",
@@ -17,7 +19,12 @@ const pool = new pg.Pool({
   database: "blog",
 });
 
-// Health Check - GET
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
+});
+
+// *******************GET**********************************
+//  Health Check
 app.get("/", async (req, res) => {
   try {
     console.log("Hello World!");
@@ -29,7 +36,7 @@ app.get("/", async (req, res) => {
   }
 });
 
-// GET all posts (published/unpublished)
+//  All posts (published/unpublished)
 app.get("/api/posts", async (req, res) => {
   try {
     const result = await pool.query(`SELECT * FROM posts`);
@@ -42,8 +49,8 @@ app.get("/api/posts", async (req, res) => {
   }
 });
 
-// GET all "published posts"
-app.get("/api/posts", async (req, res) => {
+//  All "published posts"
+app.get("/api/posts/published", async (req, res) => {
   try {
     const result = await pool.query(`SELECT * FROM posts WHERE published=true`);
     res.status(200).json(result.rows);
@@ -53,8 +60,8 @@ app.get("/api/posts", async (req, res) => {
   }
 });
 
-
-// POST "Save&Publish" and "Save"
+// *******************POST**********************************
+//  "Save&Publish" and "Save" buttons
 app.post("/api/posts", async (req, res) => {
   const { title, body, published } = req.body;
   if (!title || !body) {
@@ -74,6 +81,51 @@ app.post("/api/posts", async (req, res) => {
   }
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+// Login request
+app.post("api/login", async (req, res) => {
+  const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ error: "email and password are required" });
+  }
+
+  try {
+    const result = await pool.query(`SELECT * FROM authors WHERE email = $1`, [
+      email,
+    ]);
+    const author = result.rows[0];
+
+    if (!author) {
+      return res.status(401).json({ error: "invalid email or password" });
+    }
+
+    const passwordMatches = await bcrypt.compare(
+      password,
+      author.password_hash,
+    );
+
+    if (!passwordMatches) {
+      return res.status(401).json({ error: "invalid email or password" });
+    }
+
+    const expiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000);
+
+    const sessionResult = await pool.query(
+      `INSERT INTO sessions (author_id, expires_at) VALUES ($1, $2) RETURNING id`,
+      [author.id, expiresAt],
+    );
+    const sessionId = sessionResult.rows[0].id;
+
+    res.cookie("session_id", sessionId, {
+      httpOnly: true,
+      expires: expiresAt,
+      sameSite: "lax",
+      secure: false,
+    });
+
+    res.status(200).json({ message: "logged in" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "something went wrong logging in" });
+  }
 });

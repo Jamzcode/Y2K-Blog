@@ -1,3 +1,9 @@
-export default function Login(){
-    return<>THIS IS LOGIN</>
+import LoginModal from "../Components/LoginModal";
+
+export default function Login() {
+  return (
+    <>
+      <LoginModal />
+    </>
+  );
 }
