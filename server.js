@@ -2,12 +2,18 @@ import express from "express";
 import cors from "cors";
 import pg from "pg";
 import cookieParser from "cookie-parser";
+import bcrypt from "bcrypt";
 import "dotenv/config";
 
 const app = express();
 const port = 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  }),
+);
 app.use(express.json());
 app.use(cookieParser());
 
@@ -82,7 +88,7 @@ app.post("/api/posts", async (req, res) => {
 });
 
 // Login request
-app.post("api/login", async (req, res) => {
+app.post("/api/login", async (req, res) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -128,4 +134,16 @@ app.post("api/login", async (req, res) => {
     console.error(err);
     res.status(500).json({ error: "something went wrong logging in" });
   }
+});
+
+// Logout request
+app.post("/api/logout", async (req, res) => {
+  res.cookie("session_id", "", {
+    httpOnly: true,
+    expires: new Date(0),
+    sameSite: "lax",
+    secure: false,
+  });
+
+  res.status(200).json({ message: "Logged out successfully" });
 });

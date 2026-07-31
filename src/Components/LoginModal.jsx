@@ -11,6 +11,7 @@ export default function LoginModal() {
       email: email.current.value,
       password: password.current.value,
     };
+
     try {
       const response = await fetch("http://localhost:3000/api/login", {
         method: "POST",
@@ -25,7 +26,7 @@ export default function LoginModal() {
         console.error("Login failed:", data.error);
         return;
       }
-
+      
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
@@ -33,7 +34,7 @@ export default function LoginModal() {
   };
 
   return (
-    <div className="border-2 h-screen">
+    <div className="border-2">
       <h1>Welcome Author!</h1>
       <p>Please login to access.</p>
       <label name="email">
@@ -51,6 +52,7 @@ export default function LoginModal() {
       >
         Login
       </button>
+      
     </div>
   );
 }

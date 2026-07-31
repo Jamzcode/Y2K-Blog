@@ -7,30 +7,30 @@
 
 :root {
   /* -- sky / atmosphere -- */
-  --aero-sky-deep:   #0f4fa3;
-  --aero-sky-top:    #1e6fd9;
-  --aero-sky-mid:    #4fa8f0;
-  --aero-sky-light:  #a8dcff;
-  --aero-sky-haze:   #eaf6ff;
+  --aero-sky-deep: #0f4fa3;
+  --aero-sky-top: #1e6fd9;
+  --aero-sky-mid: #4fa8f0;
+  --aero-sky-light: #a8dcff;
+  --aero-sky-haze: #eaf6ff;
 
   /* -- luna chrome -- */
   --aero-titlebar-start: #2a6fdb;
-  --aero-titlebar-end:   #6fb3f5;
-  --aero-silver:         #e8edf3;
-  --aero-silver-dark:    #c3cdd9;
+  --aero-titlebar-end: #6fb3f5;
+  --aero-silver: #e8edf3;
+  --aero-silver-dark: #c3cdd9;
 
   /* -- accents -- */
-  --aero-green:       #8ecb3d;
-  --aero-green-dark:  #4f8a1f;
-  --aero-teal:        #00c2cb;
-  --aero-orange:      #ffb238; /* XP "hot" accent, used sparingly */
+  --aero-green: #8ecb3d;
+  --aero-green-dark: #4f8a1f;
+  --aero-teal: #00c2cb;
+  --aero-orange: #ffb238; /* XP "hot" accent, used sparingly */
 
   /* -- text / glass -- */
-  --aero-ink:         #0a2540;
-  --aero-ink-soft:    #33506e;
-  --aero-glass:       rgba(255, 255, 255, 0.55);
+  --aero-ink: #0a2540;
+  --aero-ink-soft: #33506e;
+  --aero-glass: rgba(255, 255, 255, 0.55);
   --aero-glass-strong: rgba(255, 255, 255, 0.8);
-  --aero-glass-edge:  rgba(255, 255, 255, 0.9);
+  --aero-glass-edge: rgba(255, 255, 255, 0.9);
 
   --aero-radius: 14px;
   --aero-font: "Trebuchet MS", "Segoe UI", Tahoma, Verdana, sans-serif;
@@ -44,9 +44,24 @@ body {
   font-family: var(--aero-font);
   color: var(--aero-ink);
   background:
-    radial-gradient(ellipse 60% 40% at 15% 0%, rgba(255,255,255,0.55), transparent 60%),
-    radial-gradient(ellipse 50% 35% at 85% 10%, rgba(255,255,255,0.4), transparent 55%),
-    linear-gradient(180deg, var(--aero-sky-deep) 0%, var(--aero-sky-top) 22%, var(--aero-sky-mid) 55%, var(--aero-sky-light) 85%, var(--aero-sky-haze) 100%);
+    radial-gradient(
+      ellipse 60% 40% at 15% 0%,
+      rgba(255, 255, 255, 0.55),
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 50% 35% at 85% 10%,
+      rgba(255, 255, 255, 0.4),
+      transparent 55%
+    ),
+    linear-gradient(
+      180deg,
+      var(--aero-sky-deep) 0%,
+      var(--aero-sky-top) 22%,
+      var(--aero-sky-mid) 55%,
+      var(--aero-sky-light) 85%,
+      var(--aero-sky-haze) 100%
+    );
   background-attachment: fixed;
   min-height: 100vh;
 }
@@ -57,21 +72,37 @@ body {
 }
 
 /* XP-style scrollbar (Chrome/Edge/Safari) */
-::-webkit-scrollbar { width: 16px; height: 16px; }
-::-webkit-scrollbar-track { background: var(--aero-silver); border-left: 1px solid var(--aero-silver-dark); }
+::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+::-webkit-scrollbar-track {
+  background: var(--aero-silver);
+  border-left: 1px solid var(--aero-silver-dark);
+}
 ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, #cfe6ff, var(--aero-sky-mid) 45%, var(--aero-sky-top));
+  background: linear-gradient(
+    180deg,
+    #cfe6ff,
+    var(--aero-sky-mid) 45%,
+    var(--aero-sky-top)
+  );
   border: 2px solid var(--aero-silver);
   border-radius: 6px;
 }
-::-webkit-scrollbar-thumb:hover { background: linear-gradient(180deg, #e2f1ff, var(--aero-sky-top)); }
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #e2f1ff, var(--aero-sky-top));
+}
 
 @layer components {
-
   /* ==========================================================================
      WINDOW / CARD  — the signature element
      A miniature Luna window: gradient titlebar + glass body.
      ========================================================================== */
+
+  .page-layout {
+    min-height: 100vh;
+  }
 
   .aero-window {
     border-radius: var(--aero-radius);
@@ -81,7 +112,7 @@ body {
     border: 1px solid var(--aero-glass-edge);
     box-shadow:
       0 14px 30px rgba(15, 60, 120, 0.35),
-      inset 0 1px 0 rgba(255,255,255,0.6);
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
   }
 
   .aero-titlebar {
@@ -90,31 +121,51 @@ body {
     justify-content: space-between;
     gap: 8px;
     padding: 8px 10px 8px 14px;
-    background: linear-gradient(180deg, #6fb3f5 0%, var(--aero-titlebar-start) 45%, #1c53a8 100%);
-    border-bottom: 1px solid rgba(255,255,255,0.4);
+    background: linear-gradient(
+      180deg,
+      #6fb3f5 0%,
+      var(--aero-titlebar-start) 45%,
+      #1c53a8 100%
+    );
+    border-bottom: 1px solid rgba(255, 255, 255, 0.4);
     color: #fff;
     font-weight: 700;
     font-size: 13px;
     letter-spacing: 0.2px;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.35);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.35);
   }
 
-  .aero-titlebar-dots { display: flex; gap: 5px; }
+  .aero-titlebar-dots {
+    display: flex;
+    gap: 5px;
+  }
 
   .aero-dot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
     background: linear-gradient(180deg, #fff, var(--aero-silver-dark));
-    box-shadow: inset 0 -1px 1px rgba(0,0,0,0.25), 0 0 0 1px rgba(255,255,255,0.5);
+    box-shadow:
+      inset 0 -1px 1px rgba(0, 0, 0, 0.25),
+      0 0 0 1px rgba(255, 255, 255, 0.5);
   }
-  .aero-dot--close  { background: linear-gradient(180deg, #ff9d9d, #d43c3c); }
-  .aero-dot--min    { background: linear-gradient(180deg, #ffe08a, #e0a020); }
-  .aero-dot--max    { background: linear-gradient(180deg, #a8f0a8, var(--aero-green-dark)); }
+  .aero-dot--close {
+    background: linear-gradient(180deg, #ff9d9d, #d43c3c);
+  }
+  .aero-dot--min {
+    background: linear-gradient(180deg, #ffe08a, #e0a020);
+  }
+  .aero-dot--max {
+    background: linear-gradient(180deg, #a8f0a8, var(--aero-green-dark));
+  }
 
   .aero-window-body {
     padding: 18px 20px;
-    background: linear-gradient(180deg, rgba(255,255,255,0.65), rgba(255,255,255,0.35));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.65),
+      rgba(255, 255, 255, 0.35)
+    );
   }
 
   /* ==========================================================================
@@ -133,44 +184,79 @@ body {
     font-weight: 700;
     font-size: 14px;
     color: #fff;
-    border: 1px solid rgba(255,255,255,0.6);
-    background: linear-gradient(180deg, #7fc4ff 0%, var(--aero-sky-top) 48%, #1656ad 100%);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: linear-gradient(
+      180deg,
+      #7fc4ff 0%,
+      var(--aero-sky-top) 48%,
+      #1656ad 100%
+    );
     box-shadow:
       0 3px 0 rgba(10, 40, 90, 0.4),
-      inset 0 1px 0 rgba(255,255,255,0.8);
-    text-shadow: 0 1px 1px rgba(0,0,0,0.25);
-    transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.25);
+    transition:
+      transform 0.12s ease,
+      box-shadow 0.12s ease,
+      filter 0.12s ease;
   }
   .aero-btn::after {
     /* gloss highlight cap */
     content: "";
     position: absolute;
-    top: 2px; left: 8%;
-    width: 84%; height: 42%;
+    top: 2px;
+    left: 8%;
+    width: 84%;
+    height: 42%;
     border-radius: 999px 999px 60% 60% / 100% 100% 20% 20%;
-    background: linear-gradient(180deg, rgba(255,255,255,0.85), rgba(255,255,255,0));
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.85),
+      rgba(255, 255, 255, 0)
+    );
     pointer-events: none;
   }
-  .aero-btn:hover  { filter: brightness(1.06); transform: translateY(-1px); }
-  .aero-btn:active { transform: translateY(1px); box-shadow: 0 1px 0 rgba(10,40,90,0.4), inset 0 1px 0 rgba(255,255,255,0.5); }
+  .aero-btn:hover {
+    filter: brightness(1.06);
+    transform: translateY(-1px);
+  }
+  .aero-btn:active {
+    transform: translateY(1px);
+    box-shadow:
+      0 1px 0 rgba(10, 40, 90, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  }
 
   .aero-btn--start {
     /* the XP "Start button" green */
-    background: linear-gradient(180deg, #baf07f 0%, var(--aero-green) 48%, var(--aero-green-dark) 100%);
-    box-shadow: 0 3px 0 rgba(50, 90, 10, 0.4), inset 0 1px 0 rgba(255,255,255,0.8);
+    background: linear-gradient(
+      180deg,
+      #baf07f 0%,
+      var(--aero-green) 48%,
+      var(--aero-green-dark) 100%
+    );
+    box-shadow:
+      0 3px 0 rgba(50, 90, 10, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
   .aero-btn--ghost {
     background: var(--aero-glass);
     color: var(--aero-ink);
     text-shadow: none;
-    box-shadow: inset 0 1px 0 rgba(255,255,255,0.7), 0 2px 6px rgba(15,60,120,0.15);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.7),
+      0 2px 6px rgba(15, 60, 120, 0.15);
   }
-  .aero-btn--ghost::after { display: none; }
+  .aero-btn--ghost::after {
+    display: none;
+  }
 
   .aero-btn--danger {
     background: linear-gradient(180deg, #ff9d9d 0%, #e04b4b 48%, #a51f1f 100%);
-    box-shadow: 0 3px 0 rgba(100, 20, 20, 0.4), inset 0 1px 0 rgba(255,255,255,0.8);
+    box-shadow:
+      0 3px 0 rgba(100, 20, 20, 0.4),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
   }
 
   /* ==========================================================================
@@ -182,7 +268,9 @@ body {
     background: var(--aero-glass);
     backdrop-filter: blur(8px);
     border: 1px solid var(--aero-glass-edge);
-    box-shadow: 0 10px 24px rgba(15,60,120,0.25), inset 0 1px 0 rgba(255,255,255,0.6);
+    box-shadow:
+      0 10px 24px rgba(15, 60, 120, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.6);
     padding: 20px;
   }
 
@@ -197,14 +285,16 @@ body {
     border: 1px solid #6fa8dc;
     background: #ffffff;
     color: var(--aero-ink);
-    box-shadow: inset 0 2px 4px rgba(15,60,120,0.25);
+    box-shadow: inset 0 2px 4px rgba(15, 60, 120, 0.25);
     font-family: var(--aero-font);
     font-size: 14px;
   }
   .aero-input:focus {
     outline: none;
     border-color: var(--aero-teal);
-    box-shadow: inset 0 2px 4px rgba(15,60,120,0.25), 0 0 0 3px rgba(0,194,203,0.35);
+    box-shadow:
+      inset 0 2px 4px rgba(15, 60, 120, 0.25),
+      0 0 0 3px rgba(0, 194, 203, 0.35);
   }
 
   /* ==========================================================================
@@ -217,8 +307,8 @@ body {
     gap: 10px;
     padding: 8px 14px;
     background: linear-gradient(180deg, #2a6fdb 0%, #1c53a8 60%, #123a7c 100%);
-    border-top: 1px solid rgba(255,255,255,0.35);
-    box-shadow: 0 -4px 14px rgba(0,0,0,0.3);
+    border-top: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 -4px 14px rgba(0, 0, 0, 0.3);
   }
 
   /* ==========================================================================
@@ -228,14 +318,24 @@ body {
   .aero-bubble {
     position: absolute;
     border-radius: 50%;
-    background: radial-gradient(circle at 32% 28%, rgba(255,255,255,0.9), rgba(255,255,255,0.15) 45%, rgba(255,255,255,0) 70%);
+    background: radial-gradient(
+      circle at 32% 28%,
+      rgba(255, 255, 255, 0.9),
+      rgba(255, 255, 255, 0.15) 45%,
+      rgba(255, 255, 255, 0) 70%
+    );
     pointer-events: none;
     animation: aero-float 8s ease-in-out infinite;
   }
 
   @keyframes aero-float {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-18px); }
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-18px);
+    }
   }
 
   /* ==========================================================================
@@ -247,7 +347,10 @@ body {
     font-weight: 600;
     text-decoration: none;
   }
-  .aero-link:hover { text-decoration: underline; color: var(--aero-teal); }
+  .aero-link:hover {
+    text-decoration: underline;
+    color: var(--aero-teal);
+  }
 
   .aero-eyebrow {
     font-size: 12px;
@@ -259,11 +362,18 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .aero-bubble { animation: none; }
+  .aero-bubble {
+    animation: none;
+  }
 }
 
 @media (max-width: 640px) {
   .aero-window-body,
-  .aero-panel { padding: 14px; }
-  .aero-btn { padding: 8px 16px; font-size: 13px; }
+  .aero-panel {
+    padding: 14px;
+  }
+  .aero-btn {
+    padding: 8px 16px;
+    font-size: 13px;
+  }
 }

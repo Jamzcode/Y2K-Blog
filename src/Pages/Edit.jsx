@@ -2,7 +2,7 @@ import Editor from "../Components/Editor";
 
 export default function Edit() {
   return (
-    <div >
+    <div className="page-layout">
       <Editor />
     </div>
   );

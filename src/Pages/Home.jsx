@@ -13,21 +13,27 @@ export default function Home() {
     }
   };
   return (
-    <>
-      {`The year is y2k, the future is now! <3`}
-      <div class="border-2 h-full bg-amber-50">
-        {publishedBlogs.map((blog) => (
-          <div>{`${blog.title} ${blog.content}`}</div>
+    <div className="page-layout">
+      <h1 className="text-4xl font-[Frutiger] text-center"> TheBlogBook</h1>
+      <p className="text-center italic">
+        This blog is here for all my girlies that remember what technology was
+        and the world could have been...
+      </p>
+      <div class="h-full flex gap-2">
+        {publishedBlogs.slice(0, 3).map((blog, key) => (
+          <div className="bg-amber-50 rounded-lg p-2">{`${blog.title} ${blog.content}`}</div>
         ))}
       </div>
-      <button
-        className="aero-btn"
-        onClick={() => {
-          getPublishedBlogs();
-        }}
-      >
-        Get Published Blogs
-      </button>
-    </>
+      <div className="flex justify-around">
+        <button
+          className="aero-btn"
+          onClick={() => {
+            getPublishedBlogs();
+          }}
+        >
+          Get Published Blogs
+        </button>
+      </div>
+    </div>
   );
 }
