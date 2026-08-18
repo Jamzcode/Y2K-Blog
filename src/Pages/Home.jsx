@@ -14,8 +14,8 @@ export default function Home() {
         <PreviewCard />
       </div>
 
-      <div className="flex flex-col items-center">
-        <p>Visitors since y2k</p>
+      <div className="flex ">
+       
         <VisitorCounter />
       </div>
     </div>
