@@ -1,4 +1,5 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import NavigationBar from "./Components/NavigationBar";
 import Home from "./Pages/Home";
 import Login from "./Pages/Login";
 import Edit from "./Pages/Edit";
@@ -12,12 +13,7 @@ function App() {
     <>
       <BrowserRouter>
         <div>
-          <nav>
-            <Link to="/">Home</Link>
-            <Link to="/login">Login</Link>
-            <Link to="/edit">Edit</Link>
-            <Link to="/dashboard">Dash</Link>
-          </nav>
+          <NavigationBar />
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />

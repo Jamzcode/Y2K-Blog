@@ -1,7 +1,16 @@
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 export default function Dashboard() {
+  const [author, setAuthor] = useState(null);
   const navigate = useNavigate("");
+
+  useEffect(()=>{
+    fetch("http://localhost:3000/api/me", {credentials: "include"})
+    .then((res) => res.json())
+    .then((data) => setAuthor(data))
+    .catch((err) => console.error(err));
+  }, [])
 
   const handleLogout = async () => {
     try {
@@ -23,7 +32,7 @@ export default function Dashboard() {
   return (
     <div className="page-layout">
       <div>
-        <p>Welcome, Ashley</p>
+        {author && <p>Hi {author.username}</p>}
         <p>What would you like to work on?</p>
       </div>
       <div>

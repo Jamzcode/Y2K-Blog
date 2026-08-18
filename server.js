@@ -25,25 +25,48 @@ const pool = new pg.Pool({
   database: "blog",
 });
 
-app.listen(port, () => {
-  console.log(`App listening on port ${port}`);
-});
+async function requireAuth(req, res, next) {
+  const sessionId = req.cookies.session_id;
+
+  if (!sessionId) {
+    return res.status(401).json({ error: "not logged in" });
+  }
+
+  try {
+    const result = await pool.query(
+      `SELECT authors.id, authors.username, authors.email
+      FROM sessions
+      JOIN authors ON authors.id = sessions.author_id
+      WHERE sessions.id = $1 AND sessions.expires_at > now()`,
+      [sessionId],
+    );
+
+    const author = result.rows[0];
+
+    if (!author) {
+      return res.status(401).json({ error: "session invalid or expired" });
+    }
+
+    req.author = author;
+    next();
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "something went wrong checking auth" });
+  }
+}
 
 // *******************GET**********************************
 //  Health Check
-app.get("/", async (req, res) => {
-  try {
-    console.log("Hello World!");
-  } catch (err) {
-    console
-      .error(err)
-      .status(500)
-      .json({ error: "Unable to connect to server" });
-  }
+app.get("/", (req, res) => {
+  res.status(200).send("Hello World!");
+});
+
+app.get("/api/me", requireAuth, (req, res) => {
+  res.status(200).json(req.author);
 });
 
 //  All posts (published/unpublished)
-app.get("/api/posts", async (req, res) => {
+app.get("/api/posts", requireAuth, async (req, res) => {
   try {
     const result = await pool.query(`SELECT * FROM posts`);
     res.status(200).json(result.rows);
@@ -68,17 +91,17 @@ app.get("/api/posts/published", async (req, res) => {
 
 // *******************POST**********************************
 //  "Save&Publish" and "Save" buttons
-app.post("/api/posts", async (req, res) => {
+app.post("/api/posts", requireAuth, async (req, res) => {
   const { title, body, published } = req.body;
   if (!title || !body) {
     return res.status(400).json({ error: "title and body are required" });
   }
   try {
     const result = await pool.query(
-      `INSERT INTO posts (title, content, published)
-      VALUES($1, $2, $3)
+      `INSERT INTO posts (title, content, published, id)
+      VALUES($1, $2, $3, $4)
       RETURNING *`,
-      [title, body, !!published],
+      [title, body, !!published, req.author.id],
     );
     res.status(201).json(result.rows[0]);
   } catch (err) {
@@ -146,4 +169,9 @@ app.post("/api/logout", async (req, res) => {
   });
 
   res.status(200).json({ message: "Logged out successfully" });
+});
+
+// ****Start your engines!***
+app.listen(port, () => {
+  console.log(`App listening on port ${port}`);
 });

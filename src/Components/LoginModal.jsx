@@ -8,8 +8,8 @@ export default function LoginModal() {
 
   const handleLogin = async () => {
     const payload = {
-      email: email.current.value,
-      password: password.current.value,
+      email: "james.ximenez@gmail.com",
+      password: "GravyTrain",
     };
 
     try {
@@ -27,6 +27,7 @@ export default function LoginModal() {
         return;
       }
       
+      console.log(data.message);
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
