@@ -1,16 +1,9 @@
 import { useNavigate } from "react-router-dom";
-import { useState, useEffect } from "react";
+import { useAuth } from "../context/AuthContext";
 
 export default function Dashboard() {
-  const [author, setAuthor] = useState(null);
+  const { author, setAuthor } = useAuth();
   const navigate = useNavigate("");
-
-  useEffect(()=>{
-    fetch("http://localhost:3000/api/me", {credentials: "include"})
-    .then((res) => res.json())
-    .then((data) => setAuthor(data))
-    .catch((err) => console.error(err));
-  }, [])
 
   const handleLogout = async () => {
     try {
@@ -23,6 +16,8 @@ export default function Dashboard() {
         console.error("Logout failed");
         return;
       }
+
+      setAuthor(null);
       navigate("/login");
     } catch (err) {
       console.error(err);

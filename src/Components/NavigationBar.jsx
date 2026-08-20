@@ -18,6 +18,7 @@ export default function NavigationBar() {
       {showNav && (
         <nav>
           <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
           <Link to="/login">Login</Link>
           <Link to="/edit">Edit</Link>
           <Link to="/dashboard">Dash</Link>

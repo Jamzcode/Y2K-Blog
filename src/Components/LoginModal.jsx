@@ -1,8 +1,10 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 export default function LoginModal() {
   const navigate = useNavigate();
+  const { setAuthor } = useAuth();
   const email = useRef("");
   const password = useRef("");
 
@@ -26,8 +28,13 @@ export default function LoginModal() {
         console.error("Login failed:", data.error);
         return;
       }
-      
-      console.log(data.message);
+
+      const meResponse = await fetch("http://localhost:3000/api/me", {
+        credentials: "include",
+      });
+      const meData = await meResponse.json();
+      setAuthor(meData);
+
       navigate("/dashboard");
     } catch (err) {
       console.error(err);
@@ -53,7 +60,6 @@ export default function LoginModal() {
       >
         Login
       </button>
-      
     </div>
   );
 }
