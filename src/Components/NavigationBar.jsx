@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import {author, useAuth} from "../context/AuthContext"
+import { useAuth } from "../context/AuthContext";
 
 export default function NavigationBar() {
   const [showNav, setShowNav] = useState(false);
+  const { author } = useAuth();
 
   return (
     <div className="flex gap-2">
@@ -20,9 +21,9 @@ export default function NavigationBar() {
         <nav>
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
-          <Link to="/login">Login</Link>
-          <Link to="/edit">Edit</Link>
-          <Link to="/dashboard">Dash</Link>
+          {author ? "logout" : <Link to="/login">Login</Link>}
+          {author && <Link to="/edit">Edit</Link>}
+          {author && <Link to="/dashboard">Dash</Link>}
         </nav>
       )}
     </div>
