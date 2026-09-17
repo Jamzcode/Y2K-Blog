@@ -48,6 +48,7 @@ export default function Editor() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify(payload),
+        credentials: "include"
       });
 
       const data = await response.json();

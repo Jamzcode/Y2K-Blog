@@ -38,6 +38,7 @@ export default function PreviewCard() {
             <p className="text-xs text-slate-600 font-semibold ">
               {blog.content}
             </p>
+            <a className="text-blue-500 hover:underline hover:cursor-pointer">Read More...</a>
           </div>
         </div>
       ))}
