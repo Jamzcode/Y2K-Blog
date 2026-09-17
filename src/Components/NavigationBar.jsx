@@ -18,12 +18,12 @@ export default function NavigationBar() {
         |||
       </button>
       {showNav && (
-        <nav>
+        <nav className="flex gap-2 hover:underline hover:cursor-pointer">
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
-          {author ? "logout" : <Link to="/login">Login</Link>}
           {author && <Link to="/edit">Edit</Link>}
           {author && <Link to="/dashboard">Dash</Link>}
+          {author ? "logout" : <Link to="/login">Login</Link>}
         </nav>
       )}
     </div>

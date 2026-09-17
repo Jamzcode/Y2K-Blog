@@ -17,9 +17,19 @@ export default function Home() {
         This blog is here for all my girlies that remember what technology was
         and what the world could have been...
       </p>
-      <div className="h-screen">
-        <h2>Recent Writings:</h2>
+      <div className="flex flex-col">
+        <h2 className="text-center py-2">Recent Writings:</h2>
         <PreviewCard />
+      </div>
+      <div className="p-4 text-center">
+        <h1>
+          "You're gonna love the stuff these people write about its like soooooo
+          good!" --Anonymous Parents
+        </h1>
+        <h1>
+          "I can't imagine a world in where I don't read these blogs now that I
+          already have...!" --Unverifiable
+        </h1>
       </div>
       <div className="bg-amber-50 flex flex-col items-center py-4">
         {" "}
