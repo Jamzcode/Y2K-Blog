@@ -1,11 +1,14 @@
+import ABpic from "../assets/ABpic.jpg"
+import JXpic from "../assets/JXpic.jpg"
+
+
 export default function About() {
   return (
     <div className="page-layout">
-      <h2>Welcome to TheBlogBook!</h2>
-      <h2>About the Authors</h2>
+      <h3 className="text-center text-3xl">Meet the Authors</h3>
       <div className="flex flex-col items-center border-b-4 pb-4">
         <h3>Ashley "Dr.B" Baladhay, Pharm D.</h3>
-        <img src="https://placehold.co/400" />
+        <img src={ABpic} className="w-[400px] rounded-2xl"/>
 
         <p className="text-center">
           `Dr.B was born in New York and thus likes colder seasons of existence.
@@ -18,7 +21,7 @@ export default function About() {
       </div>
       <div className="flex flex-col items-center">
         <h3>Jamzcode</h3>
-        <img src="https://placehold.co/400" />
+        <img src={JXpic} className="w-[400px] rounded-2xl"/>
 
         <p className="text-center">
           Developer and attentive lover (!), Jamzcode enjoys long walks on the
